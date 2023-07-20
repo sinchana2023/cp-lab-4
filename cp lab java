@@ -1,0 +1,189 @@
+Create a Java interface called "BankAccount" that represents a bank account. The interface should declare the following methods:
+
+getAccountNumber(), which returns a String representing the account number.
+getAccountHolderName(), which returns a String representing the account holder's name.
+getBalance(), which returns a double representing the account balance.
+deposit(double amount), which takes a double argument representing the amount to be deposited and updates the account balance accordingly.
+withdraw(double amount), which takes a double argument representing the amount to be withdrawn and updates the account balance if sufficient funds are available.
+Create a class called "SavingsAccount" that implements the "BankAccount" interface. The class should have the following private attributes: "accountNumber" (String), "accountHolderName" (String), "balance" (double), and "interestRate" (double).
+
+Implement the necessary constructor and methods required by the interface. The deposit() and withdraw() methods should update the account balance accordingly. Additionally, the calculateInterest() method should calculate and return the interest earned by the account using the formula: interest = balance * interestRate.
+
+Create another class called "CurrentAccount" that also implements the "BankAccount" interface. The class should have the following private attributes: "accountNumber" (String), "accountHolderName" (String), "balance" (double), and "overdraftLimit" (double).
+
+Implement the necessary constructor and methods required by the interface. The deposit() and withdraw() methods should update the account balance accordingly, but should also check if the withdrawal amount exceeds the available balance plus the overdraft limit. If the withdrawal amount exceeds the available funds, the account should be left with a negative balance up to the overdraft limit. The getBalance() method should account for the overdraft limit and return the actual balance including the negative balance.
+
+Write a main method to test the functionality of the "SavingsAccount" and "CurrentAccount" classes. Create instances of both classes and test the methods including deposit(), withdraw(), calculateInterest(), and getBalance().
+
+Your task is to complete the implementation of the "BankAccount", "SavingsAccount", and "CurrentAccount" classes and test their functionality in the main method.
+
+
+interface bankaccount{
+    int getaccount_number(String accountnumber);
+    int getaccountholdername(String accountholdername);
+    int getbalance();
+    int deposit(double amount);
+    int withdraw(double amount);
+    //int withdraw(double amount,double overdraftlimit);
+}
+class savingsaccount implements bankaccount
+{
+    private String accountnumber;
+    private String accountholdername;
+    private double balance;
+    double interest_rate;
+    double interest_amount;
+    double amount;
+    //Scanner sc=new Scannercanner(System.in);
+    public savingsaccount(double initialdeposit)//parameterized constructor
+    {
+        balance=initialdeposit;   
+        System.out.println("Savings account is created ");
+    }
+    public int getaccount_number(String accountnumber)//prints the account number
+    {
+        this.accountnumber=accountnumber;
+        System.out.println("The account number is:"+accountnumber);
+        return 0;
+    }
+    public int getaccountholdername(String accountholdername)
+    {
+        this.accountholdername=accountholdername;
+        System.out.println("The account holder name is:"+accountholdername);
+        return 0;
+    }
+    public int getbalance()
+    {
+        System.out.println("The balance in the savings account is:"+balance);
+        return 0;
+    }
+    public int deposit(double amount)//adds upto to the balance
+    {
+        this.amount=amount;
+       System.out.println("the amount to deposit is:"+amount);
+       balance+=amount;
+       System.out.println("the amount after the  deposit is:"+balance);
+       return 0;
+    }
+    public int interest_amount(double interest_rate)//calculates the interest amount
+    {
+        this.interest_rate=interest_rate;
+        interest_amount=(balance*(interest_rate/100));
+        balance=balance+interest_amount;
+        System.out.println("the interest amount is:"+interest_amount);
+        System.out.println("the new balance  is:"+balance);
+        return 0;
+    }
+    public int withdraw(double amount)//checks the balance and then withdraws if possible
+    {
+        if(balance>amount)
+        {
+            balance=balance-amount;
+            System.out.println("the balance after the withdrawl is:"+balance);
+        }
+        else{
+            System.out.println("insufficient balance");
+        }
+        return 0;
+    }
+    public void present_balance()//shows the balance after transactions
+    {
+        System.out.println("balance in the account at the moment is:"+balance);
+    }
+}
+class currentaccount implements bankaccount
+{
+    private String accountnumber;
+    private String accountholdername;
+    private double balance;
+    private double amount;
+    private double overdraftlimit;
+    currentaccount(double initialdeposit,double overdraftlimitt)//parameterized constructor
+    {
+        balance=initialdeposit;
+        overdraftlimit=overdraftlimitt;
+        System.out.println("the current account is created");
+        System.out.println("The overdraft limit is:"+overdraftlimit);
+    }
+    public int getaccount_number(String accountnumber)//prints account number
+    {
+        this.accountnumber=accountnumber;
+        System.out.println("The account number is:"+accountnumber);
+        return 0;
+    }
+    public int getaccountholdername(String accountholdername)
+    {
+        this.accountholdername=accountholdername;
+        System.out.println("The account holder name is:"+accountholdername);
+        return 0;
+    }
+    public int getbalance()//initial balance
+    {
+        System.out.println("The balance in the savings account is:"+balance);
+        return 0;
+    }
+    public int deposit(double amount)//adds to the balance
+    {
+        this.amount=amount;
+       System.out.println("the amount to deposit is:"+amount);
+       balance=balance+amount;
+       System.out.println("the amount after the  deposit is:"+balance);
+       return 0;
+    }
+    public int withdraw(double amount)//checks the overdraft and balnce and then withdraws if 
+    //the balance is positive or negative
+    {
+        double capacity;
+        capacity=balance+overdraftlimit;
+        if(capacity>amount)
+        {
+            balance=balance-amount;
+            System.out.println("the balance after the withdrawl is:"+balance);
+        }
+        else{
+            System.out.println("insufficient balance");
+        }
+        return 0;
+    }
+    public void present_balance()//balance after any transactions
+    {
+        System.out.println("the balance at the moment is:"+balance);
+    }
+    
+}
+
+public class Main{
+    public static void main(String[] args)
+    {
+        savingsaccount s1=new savingsaccount(105000);//creation of savings account
+        s1.getaccount_number("75486153");
+        s1.getaccountholdername("sinchana");
+        s1.getbalance();
+        s1.deposit(7500);
+        s1.interest_amount(6);
+        
+        s1.present_balance();
+        s1.withdraw(9000);
+        s1.present_balance();
+        System.out.println("-----------------------");
+        currentaccount c1=new currentaccount(105787,50500);//creation of current account
+        c1.getaccount_number("65894954");
+        c1.getaccountholdername("khushi");
+        c1.getbalance();
+        c1.deposit(8000);
+        c1.present_balance();
+        c1.withdraw(113790);
+        c1.present_balance();
+        System.out.println("-----------------------");
+        currentaccount c2=new currentaccount(120000,40000);//creation of current account
+        c2.getaccount_number("45894954");
+        c2.getaccountholdername("nidhi");
+        c2.getbalance();
+        c2.deposit(10000);
+        c2.present_balance();
+        c2.withdraw(120000);
+        c2.present_balance();
+        
+        
+        }
+}
