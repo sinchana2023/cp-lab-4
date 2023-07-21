@@ -1,0 +1,79 @@
+abstract class animal
+{
+protected String name;
+protected int age;
+animal(String name,int age)
+{
+System.out.println("The name of the animal is :"+name);
+System.out.println("The age of the animal is:"+age);
+}
+abstract void makesound();
+}
+class Dog extends animal
+{
+private int breathe;
+Dog(String name,int age)
+{
+super(name,age);
+}
+public void count_breathe(int breathe)
+{
+this.breathe=breathe;
+System.out.println("the braethe count is:"+breathe);
+}
+void makesound()
+{
+System.out.println("It barks bow bow");
+}
+}
+ class cat extends animal
+{
+private String color;
+cat(String name,int age)
+{
+super(name,age);
+}
+
+void makesound()
+{
+System.out.println("it says meow");
+}
+void coloris(String color)
+{
+this.color=color;
+System.out.println("the color is:"+color);
+}
+
+}
+class main{
+public static  void main(String[] args)
+{
+Dog d1=new Dog("charlie",12);
+d1.count_breathe(55);
+d1.makesound();
+cat c1=new cat("kitty",5);
+c1.coloris("black");
+c1.makesound();
+}
+}
+
+PACKAGES
+
+
+package p1;
+public class classA
+{
+public void displayA()
+{
+System.out.println("class A");
+}
+}
+import p1.classA;
+class testclass
+{
+public static void main(String str[])
+{
+classA objA=new classA();
+objA.displayA();
+}
+}
